@@ -9,6 +9,9 @@ let state,timerId,lastTick,toastTimer,audioCtx,soundOn=true;
 let unlockedCache=false;
 let safeInsets={top:0,right:0,bottom:0,left:0};
 let windowInfoTimer;
+const STAGE_WIDTH=1365;
+const STAGE_HEIGHT=768;
+const STAGE_MARGIN=2;
 
 function newState(endless=false){
   return {running:false,endless,time:endless?Infinity:TARGET.time,money:0,served:0,ratings:[],tray:new Set(),queue:[],unlocked:unlockedCache};
@@ -65,9 +68,29 @@ function vibrateFeedback(type){
   try{miniTool.vibrateShort({type:type}).catch(function(){});}catch(error){}
 }
 
+function readCssSafeInsets(){
+  const style=getComputedStyle(document.documentElement);
+  const read=function(name){return Math.max(0,parseFloat(style.getPropertyValue(name))||0);};
+  return {
+    top:read('--safe-area-inset-top'),
+    right:read('--safe-area-inset-right'),
+    bottom:read('--safe-area-inset-bottom'),
+    left:read('--safe-area-inset-left')
+  };
+}
+
+function writeSafeInsets(insets){
+  safeInsets=insets;
+  const root=document.documentElement.style;
+  root.setProperty('--safe-area-inset-top',safeInsets.top+'px');
+  root.setProperty('--safe-area-inset-right',safeInsets.right+'px');
+  root.setProperty('--safe-area-inset-bottom',safeInsets.bottom+'px');
+  root.setProperty('--safe-area-inset-left',safeInsets.left+'px');
+}
+
 async function applyWindowInfo(){
   const miniTool=window.xhs&&window.xhs.miniTool;
-  if(!miniTool||typeof miniTool.getWindowInfo!=='function'){scaleGame();return;}
+  if(!miniTool||typeof miniTool.getWindowInfo!=='function'){writeSafeInsets(readCssSafeInsets());scaleGame();return;}
   try{
     const info=await miniTool.getWindowInfo();
     const area=info&&info.safeArea;
@@ -81,18 +104,13 @@ async function applyWindowInfo(){
         if(rect&&Number(rect.left)>=0)menuLeft=Math.min(menuLeft,Number(rect.left));
       });
     }
-    safeInsets={
+    writeSafeInsets({
       top:area?Math.max(0,Number(area.top)||0):0,
       right:Math.max(area?Math.max(0,width-(Number(area.right)||width)):0,menuLeft<width?width-menuLeft+8:0),
       bottom:area?Math.max(0,height-(Number(area.bottom)||height)):0,
       left:area?Math.max(0,Number(area.left)||0):0
-    };
-    const root=document.documentElement.style;
-    root.setProperty('--safe-area-inset-top',safeInsets.top+'px');
-    root.setProperty('--safe-area-inset-right',safeInsets.right+'px');
-    root.setProperty('--safe-area-inset-bottom',safeInsets.bottom+'px');
-    root.setProperty('--safe-area-inset-left',safeInsets.left+'px');
-  }catch(error){safeInsets={top:0,right:0,bottom:0,left:0};}
+    });
+  }catch(error){writeSafeInsets(readCssSafeInsets());}
   scaleGame();
 }
 
@@ -237,7 +255,10 @@ function scaleGame(){
   const viewportTop=viewport?viewport.offsetTop:0;
   const usableWidth=Math.max(1,viewportWidth-safeInsets.left-safeInsets.right);
   const usableHeight=Math.max(1,viewportHeight-safeInsets.top-safeInsets.bottom);
-  const scale=Math.max(.1,Math.min((usableWidth-4)/1365,(usableHeight-4)/768));
+  const scale=Math.max(.01,Math.min(
+    Math.max(1,usableWidth-STAGE_MARGIN*2)/STAGE_WIDTH,
+    Math.max(1,usableHeight-STAGE_MARGIN*2)/STAGE_HEIGHT
+  ));
   const game=$('#game');
   game.style.left=`${viewportLeft+safeInsets.left+usableWidth/2}px`;
   game.style.top=`${viewportTop+safeInsets.top+usableHeight/2}px`;
@@ -261,4 +282,4 @@ function handleVisibility(){
 addEventListener('resize',scheduleWindowInfo);addEventListener('orientationchange',scheduleWindowInfo);document.addEventListener('visibilitychange',handleVisibility);
 if(window.visualViewport){visualViewport.addEventListener('resize',scheduleWindowInfo);visualViewport.addEventListener('scroll',scheduleWindowInfo);}
 if(supportsFlexGap())document.documentElement.classList.add('supports-flex-gap');
-state=newState(false);fillQueue();renderAll();scaleGame();restoreUnlockState();applyWindowInfo();
+state=newState(false);fillQueue();renderAll();writeSafeInsets(readCssSafeInsets());scaleGame();restoreUnlockState();applyWindowInfo();
