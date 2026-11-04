@@ -230,9 +230,18 @@ function blip(freq,duration){
 }
 
 function scaleGame(){
-  const usableWidth=Math.max(320,innerWidth-safeInsets.left-safeInsets.right);
-  const usableHeight=Math.max(240,innerHeight-safeInsets.top-safeInsets.bottom);
-  const scale=Math.min(usableWidth/1365,usableHeight/768);$('#game').style.transform=`scale(${scale})`;
+  const viewport=window.visualViewport;
+  const viewportWidth=viewport?viewport.width:innerWidth;
+  const viewportHeight=viewport?viewport.height:innerHeight;
+  const viewportLeft=viewport?viewport.offsetLeft:0;
+  const viewportTop=viewport?viewport.offsetTop:0;
+  const usableWidth=Math.max(1,viewportWidth-safeInsets.left-safeInsets.right);
+  const usableHeight=Math.max(1,viewportHeight-safeInsets.top-safeInsets.bottom);
+  const scale=Math.max(.1,Math.min((usableWidth-4)/1365,(usableHeight-4)/768));
+  const game=$('#game');
+  game.style.left=`${viewportLeft+safeInsets.left+usableWidth/2}px`;
+  game.style.top=`${viewportTop+safeInsets.top+usableHeight/2}px`;
+  game.style.transform=`translate(-50%,-50%) scale(${scale})`;
 }
 
 document.querySelectorAll('.food-btn').forEach(b=>b.addEventListener('click',()=>toggleFood(b.dataset.food)));
@@ -250,5 +259,6 @@ function handleVisibility(){
 }
 
 addEventListener('resize',scheduleWindowInfo);addEventListener('orientationchange',scheduleWindowInfo);document.addEventListener('visibilitychange',handleVisibility);
+if(window.visualViewport){visualViewport.addEventListener('resize',scheduleWindowInfo);visualViewport.addEventListener('scroll',scheduleWindowInfo);}
 if(supportsFlexGap())document.documentElement.classList.add('supports-flex-gap');
 state=newState(false);fillQueue();renderAll();scaleGame();restoreUnlockState();applyWindowInfo();
