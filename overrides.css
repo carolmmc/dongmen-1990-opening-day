@@ -1,0 +1,65 @@
+.food-sprite.burger{width:96px}
+.food-sprite.fries{width:68px}
+.food-sprite.drink{width:66px}
+.tray .mini-food{width:68px}
+.tray .mini-food.burger{width:90px}
+.portrait{width:68px;left:43px}
+.order-bubble .mini-food.burger{width:60px}
+.order-bubble .mini-food.fries{width:38px}
+.order-bubble .mini-food.drink{width:38px}
+
+/* 1990 opening-day scene: use the supplied artwork as the playable stage. */
+.game{
+  background:#2a1712 url('assets/restaurant-scene.webp') center center/cover no-repeat;
+}
+.game:before{
+  background:linear-gradient(180deg,rgba(29,12,8,.18),transparent 27%,transparent 67%,rgba(23,10,7,.32)),radial-gradient(circle at 50% 45%,transparent 48%,rgba(36,12,6,.2) 100%);
+}
+.dossier-bar{
+  height:60px;background:linear-gradient(90deg,rgba(48,24,18,.96),rgba(38,17,13,.88));
+  border-bottom:3px solid #c6965b;
+}
+.bureau-stamp{margin-left:14px;width:210px;height:44px;grid-template-columns:40px 1fr;padding:3px 10px}
+.bureau-stamp span{font-size:25px}.bureau-stamp b{font-size:14px}.bureau-stamp small{font-size:9px}
+.case-title{margin-left:28px;gap:4px}.case-title b{font-size:18px}.case-title span{font-size:11px}
+.icon-btn{width:37px;height:37px;margin-right:14px}
+.hud{top:69px;left:182px;width:625px;height:66px;border-width:3px;background:rgba(246,217,159,.92);box-shadow:0 4px 0 rgba(54,26,18,.78),0 0 0 2px #ffd77c}
+.hud-cell{background:rgba(62,31,24,.91);gap:2px}.hud-cell strong{font-size:20px}.hud-cell small{font-size:11px}
+.mission-card{top:67px;right:209px;width:335px;height:108px;padding:12px 19px;background:rgba(246,229,196,.94)}
+.mission-card b{font-size:14px}.mission-card p{font-size:11px;margin:6px 0}
+.history-polaroid{right:12px;top:66px;width:185px;height:128px;background:rgba(248,232,199,.95)}
+.history-polaroid .locked-photo{height:84px}.history-polaroid b{font-size:10px;margin-top:6px}
+.restaurant{top:60px;height:518px;background:transparent;overflow:visible}
+.restaurant:after,.wall-window,.back-sign,.tables,.plant,.rope{display:none!important}
+.customer-queue{left:205px;right:195px;bottom:26px;height:205px;filter:drop-shadow(0 5px 3px rgba(37,15,9,.4))}
+.customer{width:145px}
+.customer .order-bubble{bottom:122px;background:rgba(255,246,221,.96);border-color:#70432f;filter:drop-shadow(3px 4px rgba(69,31,21,.72))}
+.customer.active .order-bubble{box-shadow:0 0 0 4px #f6bd3c,0 0 18px rgba(255,190,58,.72)}
+.portrait{bottom:18px;filter:drop-shadow(2px 4px rgba(44,18,12,.65)) saturate(.93)}
+.patience{bottom:-3px;background:rgba(255,238,201,.93);box-shadow:0 2px 4px rgba(35,15,10,.45)}
+.counter{top:548px;height:47px;background:transparent;border:0;box-shadow:none;pointer-events:none}
+.counter>*{display:none!important}
+.control-dock{height:174px;background:linear-gradient(90deg,rgba(57,31,23,.96),rgba(45,23,17,.9));border-top:4px solid #d2a268;box-shadow:inset 0 5px rgba(255,215,151,.13),0 -9px 28px rgba(24,10,7,.33);padding-top:15px}
+.help-note{width:165px;height:104px;background:rgba(245,227,194,.94)}
+.food-btn{background:rgba(250,238,211,.95);border-color:#7a4b35}
+.tray{background:linear-gradient(150deg,rgba(211,68,52,.96),rgba(139,38,33,.96))}
+.serve-btn{background:linear-gradient(#ffd765,#e99f27)}
+.scene-caption{position:absolute;z-index:44;left:18px;top:205px;width:150px;padding:9px 10px;color:#ffe8bf;background:rgba(49,24,17,.82);border-left:4px solid #e2aa45;box-shadow:3px 4px rgba(37,15,10,.42);display:flex;flex-direction:column;gap:3px;letter-spacing:1px}
+.scene-caption b{font-size:12px}.scene-caption span{font-size:8px;color:#d8baa1}
+.bg-photo-seal{position:absolute;z-index:47;left:0;top:60px;width:176px;height:139px;background:repeating-linear-gradient(135deg,rgba(43,24,20,.97) 0 9px,rgba(58,32,25,.97) 9px 18px);border:4px solid #b98858;box-shadow:5px 6px rgba(34,14,10,.45);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f0d5a4;transform:rotate(-1deg);transition:.35s}
+.bg-photo-seal:before{content:'07';font-size:37px;font-weight:bold;color:#bd4932;line-height:1}
+.bg-photo-seal span{font-weight:bold;letter-spacing:4px}.bg-photo-seal b{font-size:10px;margin-top:8px;color:#c6a78f}
+.bg-photo-seal.unlocked{opacity:0;transform:translateY(-12px) rotate(-4deg);pointer-events:none}
+.intro-paper,.result-paper{background:rgba(244,226,193,.97)}
+
+/* Chrome 61 baseline and container safe areas. */
+body:after,#viewport,.game:before,.modal,.rotate-hint{top:0;right:0;bottom:0;left:0}
+#viewport{padding-top:0;padding-right:0;padding-bottom:0;padding-left:0;padding-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px));padding-right:var(--safe-area-inset-right,env(safe-area-inset-right,0px));padding-bottom:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px));padding-left:var(--safe-area-inset-left,env(safe-area-inset-left,0px));box-sizing:border-box}
+.brief-grid,.result-paper,.rotate-hint{grid-gap:12px}.result-paper{grid-gap:25px}
+.case-title>*+*,.brief-grid div>*+*,.scene-caption>*+*{margin-top:4px}.brief-grid div>*+*{margin-top:10px}.scene-caption>*+*{margin-top:3px}.help-note>*+*{margin-top:12px}.hud-cell>*+*{margin-top:2px}
+.control-dock>*+*{margin-left:18px}.food-buttons>*+*{margin-left:8px}.tray>*+*{margin-left:5px}.result-stats>*+*,.result-actions>*+*{margin-left:10px}.customer .order-bubble>*+*{margin-left:4px}
+.supports-flex-gap .case-title>*+*,.supports-flex-gap .brief-grid div>*+*,.supports-flex-gap .scene-caption>*+*,.supports-flex-gap .help-note>*+*,.supports-flex-gap .hud-cell>*+*,.supports-flex-gap .control-dock>*+*,.supports-flex-gap .food-buttons>*+*,.supports-flex-gap .tray>*+*,.supports-flex-gap .result-stats>*+*,.supports-flex-gap .result-actions>*+*,.supports-flex-gap .customer .order-bubble>*+*{margin-top:0;margin-left:0}
+.photo-crop{background-image:url('assets/restaurant-scene.webp');background-size:1672px 941px;background-position:0 0}
+@keyframes shakeFallback{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.shake-fallback{animation:shakeFallback .22s linear}
+@supports ((-webkit-backdrop-filter:blur(4px)) or (backdrop-filter:blur(4px))){.dossier-bar,.mission-card,.control-dock,.intro-paper,.result-paper{-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}}

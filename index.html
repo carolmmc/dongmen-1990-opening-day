@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#33170f">
+  <meta name="description" content="东门老街1990开业首日像素餐厅经营小游戏">
+  <title>东门 1990 · 开业第一天</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./overrides.css">
+</head>
+<body>
+  <main id="viewport" aria-label="东门1990餐厅经营游戏">
+    <section id="game" class="game" aria-live="polite">
+      <div class="ambient ambient-one"></div>
+      <div class="ambient ambient-two"></div>
+
+      <header class="dossier-bar">
+        <div class="bureau-stamp"><span>⌛</span><b>东门记忆调查局</b><small>DMB · 07</small></div>
+        <div class="case-title"><b>副本 07 / 1990，开业第一天</b><span>中国大陆首家麦当劳 · 深圳东门光华楼</span></div>
+        <button id="soundBtn" class="icon-btn" aria-label="切换声音">♪</button>
+      </header>
+
+      <div id="bgPhotoSeal" class="bg-photo-seal"><span>档案封存</span><b>通关后解锁</b></div>
+      <div class="scene-caption"><b>深圳东门 · 1990</b><span>OPENING DAY / ARCHIVE 07</span></div>
+
+      <section class="hud" aria-label="经营数据">
+        <div class="hud-cell"><small>营业时间</small><strong id="timeDisplay">01:30</strong></div>
+        <div class="hud-cell"><small>营业额</small><strong id="moneyDisplay">¥ 0</strong></div>
+        <div class="hud-cell"><small>满意度</small><strong><span id="moodIcon">●</span> <span id="satisfactionDisplay">100%</span></strong></div>
+        <div class="hud-cell"><small>订单进度</small><strong><span id="servedDisplay">0</span> / 8</strong></div>
+      </section>
+
+      <aside class="mission-card">
+        <div class="pin"></div>
+        <b>▣ 本关目标（90秒）</b>
+        <p><span>●</span> 完成 8 份订单 <em id="goalOrders">0/8</em></p>
+        <p><span>●</span> 顾客满意度 ≥ 80% <em id="goalMood">100%</em></p>
+        <p><span>●</span> 总营业额 ≥ ¥480 <em id="goalMoney">¥0</em></p>
+      </aside>
+
+      <div class="history-polaroid teaser" aria-label="通关后解锁的历史照片">
+        <div class="locked-photo"><span>?</span></div>
+        <b>历史影像待解锁</b>
+      </div>
+
+      <section class="restaurant" aria-label="1990年餐厅场景">
+        <div class="window wall-window left-window"><i></i><i></i><i></i></div>
+        <div class="window wall-window right-window"><i></i><i></i><i></i></div>
+        <div class="back-sign"><span class="arches">M</span><b>McDonald's</b><em>麦当劳</em></div>
+        <div class="tables"><i></i><i></i><i></i><i></i></div>
+        <div class="plant plant-left">♣</div><div class="plant plant-right">♣</div>
+
+        <div id="customerQueue" class="customer-queue"></div>
+        <div class="rope"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </section>
+
+      <section class="counter" aria-label="出餐操作台">
+        <div class="register"><div class="register-screen">M</div><div class="register-base"></div></div>
+        <div class="worker"><div class="worker-head"></div><div class="worker-body">M</div></div>
+        <div class="warming"><i></i><i></i><i></i><i></i></div>
+        <div class="fryer"><span>▥</span><span>▥</span></div>
+        <div class="soda"><b>M</b><i></i><i></i><i></i><i></i></div>
+      </section>
+
+      <section class="control-dock" aria-label="餐盘与食物选择">
+        <div class="help-note"><b>操作提示</b><span>点选食物 → 核对订单 → 出餐</span></div>
+        <div class="food-buttons">
+          <button class="food-btn" data-food="burger"><span class="food-sprite burger"></span><b>汉堡</b><kbd>1</kbd></button>
+          <button class="food-btn" data-food="fries"><span class="food-sprite fries"></span><b>薯条</b><kbd>2</kbd></button>
+          <button class="food-btn" data-food="drink"><span class="food-sprite drink"></span><b>可乐</b><kbd>3</kbd></button>
+        </div>
+        <div class="tray-wrap"><div id="tray" class="tray"><span class="tray-hint">餐盘</span></div><button id="clearBtn" class="clear-btn">清空</button></div>
+        <button id="serveBtn" class="serve-btn"><b>出餐</b><span>核对订单</span></button>
+      </section>
+
+      <div id="toast" class="toast" role="status"></div>
+
+      <section id="introModal" class="modal open">
+        <div class="paper intro-paper">
+          <div class="paper-kicker">东门记忆调查局 · 档案 07</div>
+          <h1>开业第一天</h1>
+          <p class="lead">1990年，深圳东门。新的餐饮方式第一次走进许多人的日常。</p>
+          <div class="brief-grid">
+            <div><b>你的任务</b><span>看清顾客订单，点选汉堡、薯条和可乐，再点击「出餐」。</span></div>
+            <div><b>满意度</b><span>内容正确是基础，等待越短，顾客越满意。</span></div>
+            <div><b>通关条件</b><span>90秒内完成8单、满意度80%以上、营业额达到¥480。</span></div>
+          </div>
+          <button id="startBtn" class="primary-btn">开始营业 <span>▶</span></button>
+          <small>建议手机横屏游玩 · 支持触控与键盘 1 / 2 / 3 / 空格</small>
+        </div>
+      </section>
+
+      <section id="resultModal" class="modal">
+        <div class="paper result-paper">
+          <div id="resultBadge" class="result-badge">任务完成</div>
+          <div class="result-copy">
+            <p class="paper-kicker">档案 07 · 新商业业态</p>
+            <h2 id="resultTitle">历史影像已解锁</h2>
+            <p id="resultText">你让开业首日顺利运转，也见证了一种新消费空间进入城市生活。</p>
+            <div class="result-stats"><span>完成 <b id="finalOrders">0单</b></span><span>营业额 <b id="finalMoney">¥0</b></span><span>满意度 <b id="finalMood">0%</b></span></div>
+            <div class="result-actions"><button id="retryBtn" class="secondary-btn">重新挑战</button><button id="continueBtn" class="primary-btn">继续营业</button></div>
+          </div>
+          <div id="historyPhoto" class="history-unlock">
+            <div class="photo-crop"></div>
+            <b>1990.10 · 深圳东门</b>
+            <span>改革开放初期，新商业业态与城市生活在这里相遇。</span>
+          </div>
+        </div>
+      </section>
+
+      <div id="rotateHint" class="rotate-hint"><div>↻</div><b>请将手机横过来</b><span>横屏才能完整看到餐厅</span></div>
+    </section>
+  </main>
+  <script src="./game.js"></script>
+</body>
+</html>
